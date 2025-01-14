@@ -13,3 +13,6 @@ def smaller_than_5(list):
     for i in list: print(i) if i<5 else i
 
 smaller_than_5([1,2,3,4,6,7,8,9])
+
+#Added a new comment 20:33 2025-01-13
+
