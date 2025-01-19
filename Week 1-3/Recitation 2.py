@@ -203,3 +203,11 @@ dyno_A_rray.insert_at(2, 1.5**2)
 
 for i in dyno_A_rray:
     print(i)
+
+
+####
+# Set implementation below, given sequence interface
+# supports dynamic operations in amortized constant time
+# Allocated space is double the length of the full array
+####
+
