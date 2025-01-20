@@ -56,11 +56,11 @@ class Array_Seq:
     def delete_last(self): self.delete_at(len(self)-1)      #O(n)
 
 
-A_rray = Array_Seq()
+# A_rray = Array_Seq()
 
-A_rray.build(i*i for i in range(5))
+# A_rray.build(i*i for i in range(5))
 
-print(A_rray.A)
+# print(A_rray.A)
 
 
 ####
@@ -196,13 +196,13 @@ class Dynamic_Array_Seq(Array_Seq):
     def insert_first(self, x): self.insert_at(0, x)     #O(n)
     def delete_first(self): return self.delete_at(0)    #O(n)
 
-dyno_A_rray = Dynamic_Array_Seq()
-dyno_A_rray.build(A_rray)
+# dyno_A_rray = Dynamic_Array_Seq()
+# dyno_A_rray.build(A_rray)
 
-dyno_A_rray.insert_at(2, 1.5**2)
+# dyno_A_rray.insert_at(2, 1.5**2)
 
-for i in dyno_A_rray:
-    print(i)
+# for i in dyno_A_rray:
+#     print(i)
 
 
 ####
@@ -210,4 +210,14 @@ for i in dyno_A_rray:
 # supports dynamic operations in amortized constant time
 # Allocated space is double the length of the full array
 ####
+
+ll = Linked_List_Seq()
+ll.build(range(6))
+
+curr_node = ll.head
+while curr_node is not None:
+    print(curr_node.item, id(curr_node), sep = ":")
+    curr_node = curr_node.next
+    
+
 
