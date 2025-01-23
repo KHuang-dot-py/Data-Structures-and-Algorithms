@@ -39,13 +39,17 @@ class Doubly_Linked_List_Seq:
         ###########################
         # Part (a): Implement me! #
         ###########################
-        if self.head == None:
-            new_node = Doubly_Linked_List_Node(x)
+        # When the list is empty
+        new_node = Doubly_Linked_List_Node(x)
+        if self.head == self.tail == None:
+            self.insert_last(x)
+            return
+        # List length 1
+        elif self.head == self.tail:
+            new_node.prev = self.head
             self.head = new_node
-            self.tail = new_node
             return
         second_node = self.head.next
-        new_node = Doubly_Linked_List_Node(x)
         new_node.next = second_node
         second_node.prev = new_node
         self.head = new_node
@@ -55,13 +59,21 @@ class Doubly_Linked_List_Seq:
         ###########################
         # Part (a): Implement me! #
         ###########################
-        if self.tail == None:
-            self.insert_first(x)
-            return
-        penultimate = self.tail.prev
         new_node = Doubly_Linked_List_Node(x)
-        new_node.prev = penultimate
-        penultimate.next = new_node
+        # When list is empty
+        if self.head == self.tail == None:
+            self.head = new_node
+            self.tail = new_node
+            return
+        # When list is length 1
+        if self.head == self.tail:
+            new_node.prev = self.head
+            self.head.next = new_node
+            self.tail = new_node
+            return
+        # point old tail to our new node and vice versa
+        self.tail.next = new_node
+        new_node.prev = self.tail
         self.tail = new_node
         pass
 
@@ -70,7 +82,14 @@ class Doubly_Linked_List_Seq:
         ###########################
         # Part (a): Implement me! #
         ###########################
-        if self.head == None or self.tail == None:
+        # When list is empty
+        if self.head == self.tail == None:
+            return x
+        # When list is length 1
+        elif self.head == self.tail:
+            x = self.head.item
+            self.head == None
+            self.tail == None
             return x
         x = self.head.item
         self.head = self.head.next
@@ -82,8 +101,12 @@ class Doubly_Linked_List_Seq:
         ###########################
         # Part (a): Implement me! #
         ###########################
+        # When the list is empty
         if self.head == None or self.tail == None:
             return x
+        # When the list is length 1
+        elif self.head == self.tail:
+            self.delete_first()
         x = self.tail.item
         self.tail = self.tail.prev
         self.tail.next = None
@@ -118,3 +141,12 @@ class Doubly_Linked_List_Seq:
         L2.head = None
         L2.tail = None
         pass
+
+
+my_ll = Doubly_Linked_List_Seq()
+my_ll.build(range(5))
+
+my_ll.insert_first("Zero")
+
+for node in my_ll:
+    print(node)
