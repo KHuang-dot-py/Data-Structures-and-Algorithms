@@ -44,14 +44,11 @@ class Doubly_Linked_List_Seq:
         if self.head == self.tail == None:
             self.insert_last(x)
             return
-        # List length 1
-        elif self.head == self.tail:
-            new_node.prev = self.head
-            self.head = new_node
-            return
-        second_node = self.head.next
-        new_node.next = second_node
-        second_node.prev = new_node
+        # List length 1 same process as length 2+
+        # linking new node and old head
+        new_node.next = self.head
+        self.head.prev = new_node
+        # setting new head
         self.head = new_node
         pass
 
@@ -63,12 +60,6 @@ class Doubly_Linked_List_Seq:
         # When list is empty
         if self.head == self.tail == None:
             self.head = new_node
-            self.tail = new_node
-            return
-        # When list is length 1
-        if self.head == self.tail:
-            new_node.prev = self.head
-            self.head.next = new_node
             self.tail = new_node
             return
         # point old tail to our new node and vice versa
