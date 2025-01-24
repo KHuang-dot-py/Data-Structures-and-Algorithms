@@ -108,15 +108,21 @@ class Doubly_Linked_List_Seq:
         ###########################
         # Part (b): Implement me! # 
         ###########################
-        if self.head == None or self.tail == None:
-            pass
-        before_x1 = x1.prev
-        after_x2 = x2.next
-        before_x1.next = after_x2
-        after_x2.prev = before_x1
+        if self.head == self.tail == None:
+            return L2
+        # consider if x1 is head or x2 is tail of L2...\
         L2.head = x1
-        x1.prev = None
         L2.tail = x2
+        # if x1 is the head of self, then the new head of self is x2.next
+        if x1 == self.head:
+            self.head = x2.next
+        else:
+            x1.prev.next = x2.next
+        if x2 == self.tail:
+            self.tail == x1.prev
+        else:
+            x2.next.prev = x1.prev
+        x1.prev = None
         x2.next = None
         return L2
 
@@ -124,14 +130,27 @@ class Doubly_Linked_List_Seq:
         ###########################
         # Part (c): Implement me! # 
         ###########################
-        after_x = x.next
+        after_x = x.next # can be None
         x.next = L2.head
         L2.head.prev = x
-        L2.tail.next = after_x
-        after_x.prev = L2.tail
+        L2.tail.next = after_x # can be None
+        if after_x == None:
+            self.tail = L2.tail
+        else:
+            after_x.prev = L2.tail
         L2.head = None
         L2.tail = None
-        pass
+
+    ##
+    def nth_node(self, n):
+    # access reference for the nth node
+        nth_node = self.head
+        for i in range(n):
+            nth_node = nth_node.next
+            if nth_node == None:
+                print("Index out of range")
+                return None
+        return nth_node
 
 
 my_ll = Doubly_Linked_List_Seq()
@@ -139,5 +158,19 @@ my_ll.build(range(5))
 
 my_ll.insert_first("Zero")
 
+my_2nd_ll = Doubly_Linked_List_Seq()
+my_2nd_ll.build(["Insert"])
+
 for node in my_ll:
     print(node)
+
+
+
+my_ll.splice(my_ll.nth_node(3), my_2nd_ll)
+# Expected output ("Zero, 0, 5, 4, 3, 2, 1, 1, 2, 3, 4")
+
+print("After mods")
+for node in my_ll:
+   print(node)
+
+print(my_2nd_ll.head, my_2nd_ll.tail, sep = ", ")
