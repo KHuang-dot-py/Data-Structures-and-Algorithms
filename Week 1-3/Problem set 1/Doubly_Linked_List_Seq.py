@@ -153,24 +153,24 @@ class Doubly_Linked_List_Seq:
         return nth_node
 
 
-my_ll = Doubly_Linked_List_Seq()
-my_ll.build(range(5))
+# my_ll = Doubly_Linked_List_Seq()
+# my_ll.build(range(5))
 
-my_ll.insert_first("Zero")
+# my_ll.insert_first("Zero")
 
-my_2nd_ll = Doubly_Linked_List_Seq()
-my_2nd_ll.build(["Insert"])
+# my_2nd_ll = Doubly_Linked_List_Seq()
+# my_2nd_ll.build(["Insert"])
 
-for node in my_ll:
-    print(node)
+# for node in my_ll:
+#     print(node)
 
 
 
-my_ll.splice(my_ll.nth_node(3), my_2nd_ll)
-# Expected output ("Zero, 0, 5, 4, 3, 2, 1, 1, 2, 3, 4")
+# my_ll.splice(my_ll.nth_node(3), my_2nd_ll)
+# # Expected output ("Zero, 0, 5, 4, 3, 2, 1, 1, 2, 3, 4")
 
-print("After mods")
-for node in my_ll:
-   print(node)
+# print("After mods")
+# for node in my_ll:
+#    print(node)
 
-print(my_2nd_ll.head, my_2nd_ll.tail, sep = ", ")
+# print(my_2nd_ll.head, my_2nd_ll.tail, sep = ", ")
