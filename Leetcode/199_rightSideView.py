@@ -4,13 +4,7 @@ class TreeNode(object):
         self.val = val
         self.left = left
         self.right = right
-
-class Solution(object):
-    def rightSideView(self, root):
-        """
-        :type root: Optional[TreeNode]
-        :rtype: List[int]
-        """
+        
 
 #essentially, we want the values of the rightmost node at each level. 
 #So, we traverse every node, keeping track of the level, as well as how far "right" the node is 
@@ -24,24 +18,28 @@ def rightSideView(root):
     :type root: Optional[TreeNode]
     :rtype: List[int]
     """
-    solution = []
     # have to be updating a defined array, since we don't know how deep it is...
     def dfs(node):
+        # if empty tree is given:
+        if node is None:
+            return[]
         # base case
         if node.left is None and node.right is None:
-            return [node.value]
+            return [node.val]
         elif node.right is None:
-            return [node.value] + dfs(node.left)
+            return [node.val] + dfs(node.left)
         elif node.left is None:
-            return [node.value] + dfs(node.right)
+            return [node.val] + dfs(node.right)
         else:
             l = dfs(node.left)
             r = dfs(node.right)
-            combined = []*max(len(l), len(r))
-            for i in combined:
+            combined = []
+            longer = max(len(l), len(r))
+            for i in range(longer):
                 if i < len(r):
-                    combined[i] = r[i]
+                    combined.append(r[i])
                 else:
-                    combined[i] = l[i]
-            return [node.value] + combined
+                    combined.append(l[i])
+            return [node.val] + combined
 
+    return dfs(root)
