@@ -12,6 +12,20 @@ class AVL_Node:
 
     def subtree_update(A):                  # O(1)
         A.height = 1 + max(height(A.left), height(A.right))
+        # augment with subtree property size
+        A.size = 1
+        if A.left:  A.size += A.left.size
+        if A.right: A.size += A.right.size
+    
+    # added subtree_at implementation for sequence operations
+    # returns node at index i
+    def subtree_at(A, i):
+        assert i >= 0
+        if A.left:  L_size = A.left.size
+        else:       L_size = 0
+        if i < L_size:  return A.left.subtree_at(i)
+        if i > L_size:  return A.left.subtree_at(i-L_size-1)
+        else:           return A
 
     def skew(A):                            # O(1)
         return height(A.right) - height(A.left)
