@@ -28,40 +28,36 @@ def takeCharacters( s: str, k: int) -> int:
     
     l = len(s)//2
     r = l+1
+    # freq of a, b, c must be greater than or equal to k at the beginning
 
-    while l >= 0 and r <= len(s)-1:
-        if s[l] == 'a' and freq['a'] > k:
-            freq['a'] -= 1
+    while l >= 0:
+        if freq[s[l]] == k:
+            break
+        else:
+            freq[s[l]] -= 1
             l -= 1
-        elif s[l] == 'b' and freq['b'] > k:
-            freq['b'] -= 1
-            l -= 1
-        elif s[l] == 'c' and freq['c'] > k:
-            freq['c'] -= 1
-            l -= 1
-        
+    
+    while r <= len(s)-1:
         # if any is equal to k, should return at that point
-        if s[r] == 'a' and freq['a'] > k:
-            freq['a'] -= 1
+        if freq[s[r]] == k:
+            break
+        else:
+            freq[s[r]] -= 1
             r += 1
-        elif s[r] == 'b' and freq['b'] > k:
-            freq['b'] -= 1
-            r += 1
-        elif s[r] == 'c' and freq['c'] > k:
-            freq['c'] -= 1
-            r += 1
-      
-        if freq[s[l]] == freq[s[r]] == k:
-            return l + (len(s) - r + 1)
-        
+    
+    return len(s) - (r + 1) + (l + 1)
+
+5 - 3 + 1
 
 tests = [
     "abc",
     'aaaaaaaaaaaaaabc',
-    "aabaaaacaabc"
+    "aabaaaacaabc",
+    "acba",
+    "cbbac"
 ]
          
-k = 2
+k = 1
 
-print(takeCharacters(tests[2],k))
+print(takeCharacters(tests[0],k))
 
