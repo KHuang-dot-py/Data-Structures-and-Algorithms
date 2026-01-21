@@ -1,63 +1,44 @@
-def takeCharacters( s: str, k: int) -> int:
+class Solution:
+    def takeCharacters(self, s: str, k: int) -> int:
+        if k == 0:
+            return 0
+        
+        n = len(s)
+        if n < k*3:
+            return -1
 
-    # intuition
-        # naive approach, explore all possibilities in 2^n time...
+        f = [0,0,0]
+        offset = ord('a')
+        for char in s:
+            idx = ord(char) - offset
+            f[idx] += 1 
+        
+        for count in f:
+            if count < k: return -1
 
-    # approach in words
-        # what if I scan the whole array to find the number of times a,b and c appear.
-            #store occurrences in an array, since string is only composed of a,b, and c
-        # then, I move two pointers from the middle outwards until there are k of a,b and c.
-        # return the number of elements outside both pointers
-        # how to prove correctness??
-            #if I were to go outside in, where the two pointers currently are, there are exactly k of a,b, and c.
+        l,r = 0,0
+        max_window = 0
 
-    # time complexity
-        # O(n)
+        for r in range(n):
+            r_idx = ord(s[r]) - offset
+            f[r_idx] -= 1
 
-    # space complexity
-        # O(1)
+            while f[r_idx] < k:
+                l_idx = ord(s[l]) - offset
+                f[l_idx] += 1
+                l += 1
 
-    # generating freq table
-    freq = {"a":0, "b": 0, "c": 0}
-    
-    for c in s:
-        freq[c] += 1
-
-    if any(val<k for key, val in freq.items()):
-        return -1
-    
-    l = len(s)//2
-    r = l+1
-    # freq of a, b, c must be greater than or equal to k at the beginning
-
-    while l >= 0:
-        if freq[s[l]] == k:
-            break
-        else:
-            freq[s[l]] -= 1
-            l -= 1
-    
-    while r <= len(s)-1:
-        # if any is equal to k, should return at that point
-        if freq[s[r]] == k:
-            break
-        else:
-            freq[s[r]] -= 1
-            r += 1
-    
-    return len(s) - (r + 1) + (l + 1)
-
-5 - 3 + 1
+            curr_window = r - l + 1
+            max_window = max(max_window, curr_window)
+        
+        return n - max_window
 
 tests = [
-    "abc",
-    'aaaaaaaaaaaaaabc',
-    "aabaaaacaabc",
-    "acba",
-    "cbbac"
+    ["aabaaaacaabc", 2, 8]
 ]
-         
-k = 1
 
-print(takeCharacters(tests[0],k))
+instance = Solution()
 
+
+for t in tests:
+    print(instance.takeCharacters(t[0], t[1]) == t[2])
